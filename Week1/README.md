@@ -53,7 +53,7 @@ def draw_hist(arr1, arr2):
   plt.show()
 ```
 ##### a. Thực hiện phân tách điểm trên tập cho trước
-Ta đặt hai mảng cho trước a và b:
+Ta đặt hai mảng cho trước a và b:  
 `a = np.array([1,2,3,2,3,4,5,6,7])`   
 `b = np.array([5,5,6,6,7,8,9,9,8])`   
 Kết quả:   
@@ -66,7 +66,7 @@ Ta sinh hai mảng a, b ngẫu nhiên:
 `b = np.random.normal(75, 15, size=300000).round(0).astype(np.int)`  
 Trong đó:  
 * mảng `a` có mean = 25, sigma = 15 và có tổng cộng 300000 (được làm tròn lại thành số nguyên)
-* mảng `b` có mean = 75, sigma = 15 và có tổng cộng 300000 (được làm tròn lại thành số nguyên)
+* mảng `b` có mean = 75, sigma = 15 và có tổng cộng 300000 (được làm tròn lại thành số nguyên)  
 Kết quả:  
 ![result 2](b1_b.png)  
 *Tìm được ThreadHold = 50*
