@@ -54,25 +54,25 @@ def draw_hist(arr1, arr2):
 ```
 ##### a. Thực hiện phân tách điểm trên tập cho trước
 Ta đặt hai mảng cho trước a và b:
-`a = np.array([1,2,3,2,3,4,5,6,7])`
-`b = np.array([5,5,6,6,7,8,9,9,8])`
-Kết quả:
-![result 1](b1_a.png)
+`a = np.array([1,2,3,2,3,4,5,6,7])`   
+`b = np.array([5,5,6,6,7,8,9,9,8])`   
+Kết quả:   
+![result 1](b1_a.png)  
 *Tìm được ThreadHold = 5*
 
 ##### b. Thực hiện phân tách điểm trên tập ngẫu nhiên
-Ta sinh hai mảng a, b ngẫu nhiên:
-`a = np.random.normal(25, 15, size=300000).round(0).astype(np.int)`
-`b = np.random.normal(75, 15, size=300000).round(0).astype(np.int)`
-Trong đó:
+Ta sinh hai mảng a, b ngẫu nhiên:  
+`a = np.random.normal(25, 15, size=300000).round(0).astype(np.int)`  
+`b = np.random.normal(75, 15, size=300000).round(0).astype(np.int)`  
+Trong đó:  
 * mảng `a` có mean = 25, sigma = 15 và có tổng cộng 300000 (được làm tròn lại thành số nguyên)
 * mảng `b` có mean = 75, sigma = 15 và có tổng cộng 300000 (được làm tròn lại thành số nguyên)
-Kết quả:
-![result 2](b1_b.png)
+Kết quả:  
+![result 2](b1_b.png)  
 *Tìm được ThreadHold = 50*
 
 ##### c. Thực hiện phân tách điểm trên tập được đọc từ file
-Ta lưu và đọc hai mảng `a` và `b` vào từ file `inp.csv` như sau:
+Ta lưu và đọc hai mảng `a` và `b` vào từ file `inp.csv` như sau:  
 ```py
 a = np.random.normal(15, 15, size=30000).round(0).astype(np.int)
 b = np.random.normal(65, 15, size=30000).round(0).astype(np.int)
@@ -90,8 +90,8 @@ df = pd.read_csv(file)
 a = np.array(df.iloc[0])
 b = np.array(df.iloc[1])
 ```
-Thực hiện việc phân tách ta được kết quả như sau:
-![result 3](b1_c.png)
+Thực hiện việc phân tách ta được kết quả như sau:  
+![result 3](b1_c.png)  
 *Tìm được ThreadHold = 40*
 
 ## Bài 2. Thực hiện phân tách trên một mặt phẳng hai chiều
@@ -116,5 +116,5 @@ x = np.linspace(-10, 10)
 y = 2*x + 3
 plt.plot(x, y)
 ```
-Kết quả:
+Kết quả:  
 ![result 4](b2.png)
