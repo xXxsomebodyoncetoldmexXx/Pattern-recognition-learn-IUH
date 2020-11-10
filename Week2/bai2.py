@@ -54,6 +54,7 @@ class Classifier:
     if prob_sum == 0:
       # In case of not found
       # Distribute evenly between every class
+      # This make sure the final result <= 1
       number_class = len(self.nbClass)
       prob_list = [ (1/number_class, name) for _, name in prob_list ]
     else:
