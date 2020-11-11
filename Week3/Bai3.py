@@ -49,16 +49,13 @@ print("Cov của Class 2 là:")
 print(cov_list[1])
 print()
 
-def mtrx_inverse(matrix):
-  return np.linalg.inv(matrix)
-
 def df(X, mu_list, cov_list, pi_list):
   scores_list = list()
   classes = len(mu_list)
   for p in range(classes):
-    Wi = (-1/2)*mtrx_inverse(cov_list[p])
-    wi = mtrx_inverse(cov_list[p])@mu_list[p]
-    wi0 = (-1/2)*np.transpose(mu_list[p])@mtrx_inverse(cov_list[p])@mu_list[p] + (-1/2)*np.log(np.linalg.norm(cov_list[p])) + np.log(pi_list[p])
+    Wi = (-1/2)*np.linalg.inv(cov_list[p])
+    wi = np.linalg.inv(cov_list[p])@mu_list[p]
+    wi0 = (-1/2)*np.transpose(mu_list[p])@np.linalg.inv(cov_list[p])@mu_list[p] + (-1/2)*np.log(np.linalg.norm(cov_list[p])) + np.log(pi_list[p])
     score = np.transpose(X)@Wi@X + np.transpose(wi)@X + wi0
     scores_list.append(score)
   return np.argmax(scores_list)

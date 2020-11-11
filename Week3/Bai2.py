@@ -5,7 +5,6 @@ import seaborn as sns
 import itertools
 import scipy.stats
 import scipy.io
-from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 

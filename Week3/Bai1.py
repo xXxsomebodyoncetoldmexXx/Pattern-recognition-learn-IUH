@@ -3,9 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import seaborn as sns
-import itertools
 import scipy.stats
-from sklearn.naive_bayes import GaussianNB
 
 sns.set()
 iris = sns.load_dataset("iris")
