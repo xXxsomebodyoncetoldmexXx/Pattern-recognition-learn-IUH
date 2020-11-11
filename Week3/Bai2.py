@@ -23,9 +23,13 @@ plt.title('Scatter plot')
 
 print("Sỗ mẫu của Class A là:", len(classA))
 print("Sỗ mẫu của Class B là:", len(classB))
-train, test = train_test_split(classAB, train_size=0.6)
+print()
+
+# Split train data set and test set
+train, test = train_test_split(classAB, train_size=0.8)
 print("Số lượng tập train là:", len(train))
 print("Số lượng tập test là:", len(test))
+print()
 
 mu_list = [np.ravel(x) for x in np.split(train.groupby('Class').mean().values,[1])]
 cov_list = np.split(train.groupby('Class').cov().values,[2])
@@ -33,17 +37,15 @@ pi_list = train.iloc[:,0].value_counts().values / len(train)
 
 print("Mean của từng đặc trưng trong Class A là:", mu_list[0])
 print("Mean của từng đặc trưng trong Class B là:", mu_list[1])
-
-def mtrx_inverse(matrix):
-  return np.linalg.inv(matrix)
+print()
 
 def df(X, mu_list, cov_list, pi_list):
   scores_list = list()
   classes = len(mu_list)
   for p in range(classes):
-    Wi = (-1/2)*mtrx_inverse(cov_list[p])
-    wi = mtrx_inverse(cov_list[p])@mu_list[p]
-    wi0 = (-1/2)*np.transpose(mu_list[p])@mtrx_inverse(cov_list[p])@mu_list[p] + (-1/2)*np.log(np.linalg.norm(cov_list[p])) + np.log(pi_list[p])
+    Wi = (-1/2)*np.linalg.inv(cov_list[p])
+    wi = np.linalg.inv(cov_list[p])@mu_list[p]
+    wi0 = (-1/2)*np.transpose(mu_list[p])@np.linalg.inv(cov_list[p])@mu_list[p] + (-1/2)*np.log(np.linalg.norm(cov_list[p])) + np.log(pi_list[p])
     score = np.transpose(X)@Wi@X + np.transpose(wi)@X + wi0
     scores_list.append(score)
   return np.argmax(scores_list)

@@ -19,23 +19,35 @@ test2 = pd.DataFrame(scipy.io.loadmat('./Data/class2_test.mat')['class2_test'],c
 train_set = pd.concat([train1, train2], keys=['1', '2']).reset_index().drop('level_1', axis=1).rename(columns = {'level_0': 'Class'})
 test_set = pd.concat([test1, test2], keys=['1', '2']).reset_index().drop('level_1', axis=1).rename(columns = {'level_0': 'Class'})
 
+# Concat into one large dataset to plot
+data_set = pd.concat([train_set, test_set]).reset_index().drop("index", axis=1)
+
 # Plot data
 sns.set()
-sns.FacetGrid(train_set, hue="Class", height=7).map(plt.scatter,"Feature1","Feature2",).add_legend()
+sns.FacetGrid(data_set, hue="Class", height=7).map(plt.scatter,"Feature1","Feature2",).add_legend()
 plt.title('Scatter plot')
 # plt.show()
 
 print("Sỗ mẫu của Class 1 là:", len(train1))
 print("Sỗ mẫu của Class 2 là:", len(train2))
+print()
 print("Số lượng tập train là:", len(train_set))
 print("Số lượng tập test là:", len(test_set))
+print()
 
+# Use train_set to calculate parameter
 mu_list = [np.ravel(x) for x in np.split(train_set.groupby('Class').mean().values,[1])]
 cov_list = np.split(train_set.groupby('Class').cov().values,[2])
 pi_list = train_set.iloc[:,0].value_counts().values / len(train_set)
 
 print("Mean của từng đặc trưng trong Class 1 là:", mu_list[0])
 print("Mean của từng đặc trưng trong Class 2 là:", mu_list[1])
+print()
+print("Cov của Class 1 là:")
+print(cov_list[0])
+print("Cov của Class 2 là:")
+print(cov_list[1])
+print()
 
 def mtrx_inverse(matrix):
   return np.linalg.inv(matrix)
