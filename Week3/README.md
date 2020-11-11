@@ -63,7 +63,7 @@ def df(X, mu_list, cov_list, pi_list):
 ```
 
 * Công thức:  
-![formula](discriminant function.png)
+![formula](discriminant_function.png)
 
 #### Đánh giá:
 ###### Tập train chiếm 60%
