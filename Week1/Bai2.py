@@ -1,23 +1,19 @@
 import numpy as np
-import matplotlib.pyplot as plt 
-from collections import Counter
+import matplotlib.pyplot as plt
+import random
 
-# A group
-x = np.random.normal(-5, 5, size=100)
-y = np.random.normal(5, 5, size=100)
-plt.scatter(x, y, c='g', marker='^', label="A group")
-groupA = np.array([(i, j) for i, j in zip(x, y)])
+def gen_data(size):
+  # y = 2x + 3
+  x = np.linspace(-10, 10, size)
+  y = list()
+  for val in x:
+    y.append(2*val + 3 + random.randrange(-3, 3))
+  y = np.array(y)
+  return (x, y)
 
-# B group
-x = np.random.normal(5, 5, size=100)
-y = np.random.normal(-5, 5, size=100)
-plt.scatter(x, y, c='r', marker='v', label="B group")
-groupB = np.array([(i, j) for i, j in zip(x, y)])
+x, y = gen_data(100)
 
-# Guess line
-x = np.linspace(-10, 10)
-y = 2*x + 3
-plt.plot(x, y)
-
-plt.legend(loc='best')
+# plot data
+plt.scatter(x, y)
 plt.show()
+
