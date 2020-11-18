@@ -18,7 +18,6 @@ class Feature:
     self.freq_sum = sum(self.freq_dict.values())
 
   def get_freq(self, value):
-    # P(x)
     if self.bin_w:
       value = (value // self.bin_w) * self.bin_w
     return self.freq_dict.get(value, 0)
@@ -71,12 +70,16 @@ data.columns = ["last Name", "first Name", "height", "weight", "gender"]
 genders = ["male", "female"]
 height = dict()
 name = dict()
+fname = dict()
+weight = dict()
 cls = dict()
 
 for gender in genders:
   # Extract data
   height[gender] = data.loc[data["gender"] == gender, "height"]
   name[gender] = data.loc[data["gender"] == gender, "last Name"]
+  fname[gender] = data.loc[data["gender"] == gender, "first Name"]
+  weight[gender] = data.loc[data["gender"] == gender, "weight"]
   # Plot the data
 #   color = "blue" if gender == "male" else "red"
 #   bar_width = 4 if gender == "male" else 3
@@ -90,6 +93,7 @@ for gender in genders:
   cls[gender] = NaiveBayes(gender, height_fts)
 c = Classifier(cls["male"], cls["female"])
 test = [(140,), (200,), (153,), (188,), (159,), (160,), (180,), (150,), (170,)]
+print("data test:", test)
 for h in test:
   print(h, c.prob_feature_giving_value(h))
 print()
@@ -100,6 +104,7 @@ for gender in genders:
   cls[gender] = NaiveBayes(gender, name_fts)
 c = Classifier(cls["male"], cls["female"])
 test = [("Edgar",), ("Benjamin",), ("Fred",), ("Albert",), ("Laura",), ("Maria",), ("Paula",), ("Sharon",), ("Jessie",)]
+print("data test:", test)
 for n in test:
   print(n, c.prob_feature_giving_value(n))
 print()
@@ -111,6 +116,8 @@ for gender in genders:
   cls[gender] = NaiveBayes(gender, name_fts, height_fts)
 c = Classifier(cls["male"], cls["female"])
 test = [("Maria", 140), ("Anthony", 200), ("Anthony", 153), ("Jessie", 188), ("Jessie", 159), ("Jessie", 160)]
+print("data test:", test)
 for name_height in test:
   print(name_height, c.prob_feature_giving_value(name_height))
+print()
 

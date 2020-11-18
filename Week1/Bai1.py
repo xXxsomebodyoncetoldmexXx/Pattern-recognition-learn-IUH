@@ -6,12 +6,10 @@ from collections import Counter
 def find_TH(arr1, arr2):
   class1 = np.sort(arr1)
   class2 = np.sort(arr2)
-  data_set = set(class1)
-  data_set.union(class2)
+  data_set = set(class1).union(class2)
   if class1[0] > class2[0]:
     class1, class2 = class2, class1
-  class1 = Counter(class1)
-  class2 = Counter(class2)
+  class1, class2 = Counter(class1), Counter(class2)
   # v <= tp: class1
   # v >  tp: class2
   num_of_errors = arr1.size + arr2.size
@@ -43,7 +41,7 @@ def classification(arr1, arr2, threadHold):
       class2.append(v)
   return (class1, class2)
 
-def draw_hist(arr1, arr2):
+def draw_hist(arr1, arr2, name):
   nw_arr1 = Counter(arr1).items()
   nw_arr2 = Counter(arr2).items()
   X,Y = zip(*nw_arr1)
@@ -53,6 +51,7 @@ def draw_hist(arr1, arr2):
   bar_width = 0.8
   plt.bar(X2,Y2,bar_width,color="red",alpha=0.75,label="b")
   plt.legend(loc='upper right')
+  plt.savefig(name)
   plt.show()
 
 # 1a
@@ -67,7 +66,7 @@ print("Number of errors:", error)
 nw_a, nw_b = classification(a, b, thread_hold)
 print("New first array :", nw_a)
 print("New second array:", nw_b)
-draw_hist(a, b)
+draw_hist(a, b, "1a.png")
 print()
 
 # 1b
@@ -82,7 +81,7 @@ print("Number of errors:", error)
 nw_a, nw_b = classification(a, b, thread_hold)
 print("New first array :", np.sort(nw_a))
 print("New second array:", np.sort(nw_b))
-draw_hist(a, b)
+draw_hist(a, b, "1b.png")
 print()
 
 # 1c
@@ -111,5 +110,5 @@ print("Number of error:", error)
 nw_a, nw_b = classification(a, b, thread_hold)
 print("New first array :", np.sort(nw_a))
 print("New second array:", np.sort(nw_b))
-draw_hist(a, b)
+draw_hist(a, b, "1c.png")
 print()

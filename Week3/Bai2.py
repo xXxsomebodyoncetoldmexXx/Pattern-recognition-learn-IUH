@@ -38,6 +38,7 @@ print("Mean của từng đặc trưng trong Class A là:", mu_list[0])
 print("Mean của từng đặc trưng trong Class B là:", mu_list[1])
 print()
 
+# Biệt hàm
 def df(X, mu_list, cov_list, pi_list):
   scores_list = list()
   classes = len(mu_list)
@@ -49,9 +50,19 @@ def df(X, mu_list, cov_list, pi_list):
     scores_list.append(score)
   return np.argmax(scores_list)
 
+# confusion matrix to precision + recall
+def cm2pr_binary(cm):
+  p = cm[0,0]/np.sum(cm[:,0])
+  r = cm[0,0]/np.sum(cm[0])
+  return (p, r)
+
+
 prediction = ["A" if df(np.array([x,y]).reshape(-1,1), mu_list, cov_list, pi_list)==0 else "B" for x, y in test[["Feature1","Feature2"]].values]
 label = list(test["Class"].values)
-print(pd.DataFrame(confusion_matrix(label, prediction), index=['Class A', 'Class B'], columns=['Class A Predict', 'Class B Predict']))
+cf_mtx = confusion_matrix(label, prediction)
+print(pd.DataFrame(cf_mtx, index=['Class A', 'Class B'], columns=['Class A Predict', 'Class B Predict']))
+p, r = cm2pr_binary(cf_mtx)
+print("Precition = {0:.2f}, Recall = {1:.2f}".format(p, r))
 
 N = 100
 X = np.linspace(-5, 5, N)

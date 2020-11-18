@@ -57,7 +57,7 @@ Ta đặt hai mảng cho trước a và b:
 `a = np.array([1,2,3,2,3,4,5,6,7])`   
 `b = np.array([5,5,6,6,7,8,9,9,8])`   
 Kết quả:   
-![result 1](b1_a.png)  
+![result 1](1a.png)  
 *Tìm được ThreadHold = 5*
 
 ##### b. Thực hiện phân tách điểm trên tập ngẫu nhiên
@@ -68,7 +68,7 @@ Trong đó:
 * mảng `a` có mean = 25, sigma = 15 và có tổng cộng 300000 (được làm tròn lại thành số nguyên)
 * mảng `b` có mean = 75, sigma = 15 và có tổng cộng 300000 (được làm tròn lại thành số nguyên)  
 Kết quả:  
-![result 2](b1_b.png)  
+![result 2](1b.png)  
 *Tìm được ThreadHold = 50*
 
 ##### c. Thực hiện phân tách điểm trên tập được đọc từ file
@@ -91,7 +91,7 @@ a = np.array(df.iloc[0])
 b = np.array(df.iloc[1])
 ```
 Thực hiện việc phân tách ta được kết quả như sau:  
-![result 3](b1_c.png)  
+![result 3](1c.png)  
 *Tìm được ThreadHold = 40*
 
 ## Bài 2. Thực hiện phân tách trên một mặt phẳng hai chiều
@@ -117,4 +117,4 @@ y = 2*x + 3
 plt.plot(x, y)
 ```
 Kết quả:  
-![result 4](b2.png)
+![result 4](2.png)

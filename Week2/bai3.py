@@ -1,13 +1,16 @@
 import numpy as np
 
 def mean(arr):
-    if len(arr.shape) == 1:
-        return sum(arr)/len(arr)
-    return sum(mean(xi) for xi in arr)/len(arr)
+  if len(arr.shape) != 1:
+    return np.array([mean(np.asarray(i)) for i in zip(*arr)])
+  return sum(arr)/len(arr)
 
 def var(arr):
-    m = mean(arr)
-    return sum((xi - m)**2 for xi in arr)/len(arr)
+  if len(arr.shape) != 1:
+    return np.array([var(np.asarray(i)) for i in zip(*arr)])
+  m = mean(arr)
+  return sum((xi - m)**2 for xi in arr)/len(arr)
+
 # Cau 3
 a = np.array([1, 2, 4, 6, 9, 10, 20, 7])
 print("mean(a):", mean(a), mean(a)==a.mean())
@@ -25,5 +28,5 @@ print("var(c) :", var(c), var(c)==c.var())
 print("---------------------")
 
 d = np.array([[2,4],[3,7],[4,6],[5,5],[2,3]])
-print("mean(d):", mean(d), mean(d)==d.mean())
-print("var(d) :", d.var(), "Unknow")
+print("mean(d):", mean(d), mean(d)==d.mean(axis=0))
+print("var(d) :", var(d), var(d)==d.var(axis=0))

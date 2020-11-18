@@ -1,39 +1,25 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from math import sqrt
-from scipy.spatial import distance
 
-mean, var, size = np.array([1, 3]), np.array([2, 2]), 250
-x = np.random.normal(loc=mean[0], scale=sqrt(var[0]), size=size)
-y = np.random.normal(loc=mean[1], scale=sqrt(var[1]), size=size)
-plt.plot(x, y, "b.")
+def gauss(x, mean, var):
+  return (1 / (var * np.sqrt(2*np.pi)) * np.exp(-0.5 * ((x-mean)/var)**2))
 
-# x, y = np.random.multivariate_normal(mean, cov, size).T
-# plt.plot(x, y, "r.")
+def gauss2d(x, y, mean, var):
+  return gauss(x, mean[0], var[0]) * gauss(y, mean[1], var[1])
 
-# cov of this dataset
-data_cov = np.cov(x, y)
+def mahalanobis_dist(x, mean, cov):
+  return np.sqrt(np.transpose(x - mean)@np.linalg.inv(cov)@(x - mean))
 
-# target
-a = np.array([0, 0])
-b = np.array([3, 4])
-c = np.array([1, 2])
+mean = np.array([1, 3])
+var = np.array([2, 2])
 
-plt.plot(*a, "r.")
-plt.plot(*b, "r.")
-plt.plot(*c, "r.")
-
-data_dist = list(zip(x, y))
-inverse_data_cov = np.linalg.inv(data_cov)
-
-mahalanobis_dist = distance.cdist(data_dist, np.array([a,b,c]), 'mahalanobis', VI=inverse_data_cov)
-
-print("Mahalanobis distance:")
-print(mahalanobis_dist)
-
-# Make a grid [-10 10] x [-10 10] 
-plt.plot(-10, -10, ",")
-plt.plot(10, 10, ",")
-
-plt.grid()
+x = np.linspace(-10, 10)
+y = np.linspace(-10, 10)
+x, y = np.meshgrid(x, y)
+z = gauss2d(x, y, mean, var)
+plt.contourf(x, y, z)
 plt.show()
+
+# x = np.array([0, 0])
+# print(np.linalg.inv(np.cov(z)))
+# print(mahalanobis_dist(x, mean, np.cov(mean, var)))
