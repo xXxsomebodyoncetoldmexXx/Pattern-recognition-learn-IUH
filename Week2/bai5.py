@@ -11,4 +11,5 @@ x = np.arange(0, 10, 0.01)
 y = [gauss(i, mean, var) for i in x]
 plt.plot(x, y)
 plt.title(f"Gaussian ($\mu$= {mean}), $\sigma$= {var}")
+plt.savefig("Week2/5.png")
 plt.show()

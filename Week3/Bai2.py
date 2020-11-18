@@ -10,22 +10,24 @@ from sklearn.metrics import confusion_matrix
 
 # Load data
 columnsName = ['Feature1','Feature2']
-classA = pd.DataFrame(scipy.io.loadmat('./Data/classA.mat')['classA'],columns = columnsName)
-classB = pd.DataFrame(scipy.io.loadmat('./Data/classB.mat')['classB'],columns = columnsName)
+classA = pd.DataFrame(scipy.io.loadmat('./Week3/Data/classA.mat')['classA'],columns = columnsName)
+classB = pd.DataFrame(scipy.io.loadmat('./Week3/Data/classB.mat')['classB'],columns = columnsName)
+
+classAB = pd.concat([classA,classB], keys=['A', 'B']).reset_index().drop('level_1', axis=1).rename(columns = {'level_0': 'Class'})
 
 # Plot data
-classAB = pd.concat([classA,classB], keys=['A', 'B']).reset_index().drop('level_1', axis=1).rename(columns = {'level_0': 'Class'})
 sns.set()
 sns.FacetGrid(classAB, hue="Class", height=7).map(plt.scatter,"Feature1","Feature2",).add_legend()
 plt.title('Scatter plot')
-# plt.show()
+plt.savefig("Week3/2a.png")
+plt.show()
 
 print("Sỗ mẫu của Class A là:", len(classA))
 print("Sỗ mẫu của Class B là:", len(classB))
 print()
 
 # Split train data set and test set
-train, test = train_test_split(classAB, train_size=0.8)
+train, test = train_test_split(classAB, train_size=0.7)
 print("Số lượng tập train là:", len(train))
 print("Số lượng tập test là:", len(test))
 print()
@@ -56,9 +58,10 @@ def cm2pr_binary(cm):
   r = cm[0,0]/np.sum(cm[0])
   return (p, r)
 
-
+# Calculate confusion matrix
 prediction = ["A" if df(np.array([x,y]).reshape(-1,1), mu_list, cov_list, pi_list)==0 else "B" for x, y in test[["Feature1","Feature2"]].values]
 label = list(test["Class"].values)
+
 cf_mtx = confusion_matrix(label, prediction)
 print(pd.DataFrame(cf_mtx, index=['Class A', 'Class B'], columns=['Class A Predict', 'Class B Predict']))
 p, r = cm2pr_binary(cf_mtx)
@@ -82,5 +85,6 @@ my_ax.contour( X, Y, Z, 1, alpha = 1, colors = ('blue','red'))
 
 my_ax.set_xlabel('Feature1')
 my_ax.set_ylabel('Feature2')
-my_ax.set_title('Biên phân lớp dựa trên phân phối Gauss')
+my_ax.set_title('Biên phân lớp dựa trên biệt hàm')
+plt.savefig("Week3/2b.png")
 plt.show()

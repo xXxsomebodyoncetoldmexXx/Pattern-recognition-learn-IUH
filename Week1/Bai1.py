@@ -87,7 +87,7 @@ print()
 # 1c
 a = np.random.normal(15, 15, size=30000).round(0).astype(np.int)
 b = np.random.normal(65, 15, size=30000).round(0).astype(np.int)
-file = "inp.csv"
+file = "Week1/inp.csv"
 
 # Write to file
 print("Writing to file:", file)

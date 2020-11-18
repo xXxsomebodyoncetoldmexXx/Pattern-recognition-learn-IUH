@@ -18,6 +18,7 @@ y = np.linspace(-10, 10)
 x, y = np.meshgrid(x, y)
 z = gauss2d(x, y, mean, var)
 plt.contourf(x, y, z)
+plt.savefig("Week2/7.png")
 plt.show()
 
 # x = np.array([0, 0])

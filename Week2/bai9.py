@@ -46,7 +46,7 @@ def misclassification(arr1, arr2, threadHold):
       class2_error -= 1
   return (class1_error, class2_error)
 
-df = load_data("Datasets/twoclass.dat")
+df = load_data("Week2/Datasets/twoclass.dat")
 df.columns = ["Feature1", "Feature2", "Feature3", "Feature4", "Class1", "Class2"]
 
 print("Cả 2 class đều có số lượng đặc trưng là:", len(df.columns)-2)
@@ -105,10 +105,12 @@ test_c2 = np.array(test_c2)
 
 plt.title("Biểu đồ histogram của đặc trưng 1 thuộc class1")
 plt.hist(train_c1)
-# plt.show()
+plt.savefig("Week2/9_train_c1_hist.png")
+plt.show()
 plt.title("Biểu đồ plot của đặc trưng 1 thuộc class1")
 plt.plot(train_c1)
-# plt.show()
+plt.savefig("Week2/9_train_c1_plot.png")
+plt.show()
 
 thread_hold, error = find_TH(train_c1, train_c2)
 print("Biệt số tìm được là:", thread_hold)

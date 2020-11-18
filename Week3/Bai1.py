@@ -5,18 +5,25 @@ import matplotlib.colors as colors
 import seaborn as sns
 import scipy.stats
 
+# Khởi tạo seaborn
 sns.set()
+
+# Load dữ liệu mẫu trong seaborn
 iris = sns.load_dataset("iris")
 iris = iris.rename(index = str, columns = {'sepal_length':'1_sepal_length','sepal_width':'2_sepal_width','petal_length':'3_petal_length', 'petal_width':'4_petal_width'})
+
+
 print(iris)
 sns.FacetGrid(iris, hue="species", height=7).map(plt.scatter,"1_sepal_length","2_sepal_width", ).add_legend()
 plt.title('Scatter plot')
-# plt.show()
+plt.savefig("Week3/1a.png")
+plt.show()
 
 def predict_NB_gaussian_class(X, mu_list, std_list, pi_list):
   scores_list = list()
   classes = len(mu_list)
   for p in range(classes):
+    # score = g(x_1) * g(x_2)
     score = (scipy.stats.norm.pdf(x = X[0], loc = mu_list[p][0], scale = std_list[p][0] ) * scipy.stats.norm.pdf(x = X[1], loc = mu_list[p][1], scale = std_list[p][1] ) * pi_list[p])
     scores_list.append(score)
   return np.argmax(scores_list)
@@ -60,4 +67,5 @@ my_ax.contour( X, Y, Z1, 2, alpha = 1, colors = ('blue','green','red'))
 my_ax.set_xlabel('Sepal length')
 my_ax.set_ylabel('Sepal width')
 my_ax.set_title('Gaussian Naive Bayes decision boundaries')
+plt.savefig("Week3/1b.png")
 plt.show()
