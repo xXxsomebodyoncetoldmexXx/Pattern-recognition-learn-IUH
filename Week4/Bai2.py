@@ -17,7 +17,7 @@ classAB = pd.concat([classA, classB], keys=['A', 'B']).reset_index().drop("level
 sns.set()
 sns.FacetGrid(classAB, hue="Class", height=7).map(plt.scatter,"Feature1","Feature2",).add_legend()
 plt.title('Đồ thị biểu diễn dữ liệu')
-plt.savefig("1a.png")
+plt.savefig("2a.png")
 plt.show()
 
 # Split train test
@@ -25,13 +25,16 @@ train_set, test_set = train_test_split(classAB, train_size=0.7)
 print("Số lượng tập train:", len(train_set))
 print("Số lượng tập test :", len(test_set))
 
-def dist(x, y):
-  return np.sqrt(np.sum(np.power(x-y, 2)))
+# def dist(x, y):
+#   return np.sqrt(np.sum(np.power(x-y, 2)))
+
+# def phi(x, y, h):
+#   if(dist(x, y)/h > 0.5):
+#     return False
+#   return True
 
 def phi(x, y, h):
-  if(dist(x, y)/h > 0.5):
-    return False
-  return True
+  return np.exp((-np.transpose(x-y)@(x-y))/(2*np.power(h, 2)))
 
 def pw(X, data_set, h):
   score_list = list()
@@ -45,7 +48,7 @@ def pw(X, data_set, h):
   return np.argmax(score_list)
 
 # diameter of the hypercube
-h = 3
+h = 1
 
 # Evaluate
 # confusion matrix to precision + recall
@@ -60,7 +63,7 @@ cf_mtx = confusion_matrix(label, predict)
 print(pd.DataFrame(cf_mtx, index=["Class A", "Class B"], columns=["Class A predict", "Class B predict"]))
 p, r = cm2pr_binary(cf_mtx)
 print("Precition = {0:.2f}, Recall = {1:.2f}".format(p, r))
-
+# exit(0)
 # Plot result
 #Plot with boundary contours
 N = 100
@@ -87,5 +90,5 @@ my_ax.contour( X, Y, Z, 1, alpha = 1, colors = ('blue','red'))
 my_ax.set_xlabel('Feature1')
 my_ax.set_ylabel('Feature2')
 my_ax.set_title('Biên phân lớp dựa trên Parzen window')
-plt.savefig("1b.png")
+plt.savefig("2b.png")
 plt.show()

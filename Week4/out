@@ -1,0 +1,6 @@
+Số lượng tập train: 151
+Số lượng tập test : 65
+         Class A predict  Class B predict
+Class A               21                2
+Class B                2               40
+Precition = 0.91, Recall = 0.91
